@@ -1,5 +1,7 @@
 const shell = require('shelljs');
 
+shell.rm('-rf', 'dist');
+
 shell.mkdir('-p', 'dist/public/css/');
 shell.cp('-R', 'src/public/js/lib', 'dist/public/js/');
 shell.cp('-R', 'src/public/fonts', 'dist/public/');
