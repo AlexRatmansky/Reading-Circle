@@ -1,11 +1,14 @@
-const express = require('express');
+import * as express from 'express';
 const router = express.Router();
-const fs = require('fs');
-const frontMatter = require('front-matter');
-const moment = require('moment');
-const Typograf = require('typograf');
 
-const MarkdownIt = require('markdown-it');
+import * as fs from 'fs';
+import * as moment from 'moment';
+import * as frontMatter from 'front-matter';
+import * as typograf from 'typograf';
+import * as MarkdownIt from 'markdown-it';
+
+import { Article } from 'Article';
+
 const md = new MarkdownIt({
   html: true,
   linkify: true,
@@ -13,37 +16,32 @@ const md = new MarkdownIt({
 })
   .use(require('markdown-it-footnote'));
 
-const tp = new Typograf({
-  locale: ['ru', 'en-US'],
-  htmlEntity: { type: 'name' }
+const tp = new typograf({
+  locale: 'ru',
+  htmlEntity: {
+    type: 'name'
+  }
 });
-
-tp.disableRule('common/space/afterPunctuation');
-// tp.disableRule('ru/space/afterHellip');
-// tp.disableRule('ru/punctuation/hellipQuestion');
-
-console.log('common/space/afterPunctuation', tp.isEnabledRule('common/space/afterPunctuation'));
-console.log('ru/space/afterHellip', tp.isEnabledRule('ru/space/afterHellip'));
-console.log('ru/punctuation/hellipQuestion', tp.isEnabledRule('ru/punctuation/hellipQuestion'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
-  let todayDate = moment();
+  const todayDate = moment();
   fs.readFile(`./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.md`, 'utf8', function (err, data) {
 
-    let content = frontMatter(data);
+    const content = frontMatter(data);
+    const contentAttributes: Article = content.attributes as Article;
     let result = tp.execute(content.body);
 
     result = md.render(result);
 
     res.render('index', {
-      title: content.attributes.title || 'Empty title',
+      title: contentAttributes.title || 'Empty title',
       date: {
-        before: moment(content.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(content.attributes.date).format('MM-DD'),
+        before: moment(contentAttributes.date).subtract(1, 'day').format('MM-DD'),
+        current: moment(contentAttributes.date).format('MM-DD'),
         today: moment().format('MM-DD'),
-        after: moment(content.attributes.date).add(1, 'day').format('MM-DD')
+        after: moment(contentAttributes.date).add(1, 'day').format('MM-DD')
       },
       body: result
     });
@@ -60,21 +58,22 @@ router.get('/:monthId-:dayId', function (req, res, next) {
       res.render('error');
     }
 
-    let content = frontMatter(data);
+    const content = frontMatter(data);
+    const contentAttributes: Article = content.attributes as Article;
     let result = tp.execute(content.body);
 
     result = md.render(result);
 
     res.render('detail', {
-      title: content.attributes.title || 'Empty title',
+      title: contentAttributes.title || 'Empty title',
       date: {
-        before: moment(content.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(content.attributes.date).format('MM-DD'),
-        after: moment(content.attributes.date).add(1, 'day').format('MM-DD')
+        before: moment(contentAttributes.date).subtract(1, 'day').format('MM-DD'),
+        current: moment(contentAttributes.date).format('MM-DD'),
+        after: moment(contentAttributes.date).add(1, 'day').format('MM-DD')
       },
       body: result
     });
-  })
+  });
 });
 
 // router.get('/writeFiles', function (req, res, next) {
@@ -115,4 +114,4 @@ router.get('/:monthId-:dayId', function (req, res, next) {
 //   res.render('writeFiles');
 // });
 
-module.exports = router;
+export default router;
