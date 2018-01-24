@@ -6,7 +6,7 @@
     "start": "npm run serve",
     "serve": "node ./bin/www",
     "build": "npm run copy-static-assets && npm run build-stylus && npm run build-ts && npm run tslint",
-    "build-stylus": "stylus src/public/css/style.styl -o dist/public/css/style.css -D",
+    "build-stylus": "stylus src/public/css/style.styl -o dist/public/css/style.css",
     "watch-stylus": "stylus -w src/public/css/style.styl -o dist/public/css/style.css",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
