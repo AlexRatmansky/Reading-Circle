@@ -4,8 +4,11 @@ const router = express.Router();
 import * as fs from 'fs';
 import * as moment from 'moment';
 import * as frontMatter from 'front-matter';
-import * as typograf from 'typograf';
 import * as MarkdownIt from 'markdown-it';
+
+const typograf = require('typograf');
+const Hypher = require('hypher');
+const hyphenation = require('hyphenation.ru');
 
 import { Article } from 'Article';
 
@@ -35,6 +38,9 @@ router.get('/', function (req, res, next) {
 
     result = md.render(result);
 
+    const hypher = new Hypher(hyphenation);
+    result = hypher.hyphenateText(result, 5);
+
     res.render('index', {
       title: contentAttributes.title || 'Empty title',
       date: {
@@ -63,6 +69,9 @@ router.get('/:monthId-:dayId', function (req, res, next) {
     let result = tp.execute(content.body);
 
     result = md.render(result);
+
+    const hypher = new Hypher(hyphenation);
+    result = hypher.hyphenate(result);
 
     res.render('detail', {
       title: contentAttributes.title || 'Empty title',
