@@ -6,35 +6,38 @@ import * as moment from 'moment';
 import * as frontMatter from 'front-matter';
 import * as MarkdownIt from 'markdown-it';
 
-const typograf = require('typograf');
+const Typograf = require('typograf');
 const Hypher = require('hypher');
 const hyphenation = require('hyphenation.ru');
 
 import { Article } from 'Article';
 
-const md = new MarkdownIt({
+const markdownIt = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true
 })
   .use(require('markdown-it-footnote'));
 
-const tp = new typograf({
+const typograf = new Typograf({
   locale: 'ru',
   htmlEntity: {
     type: 'name'
   }
 });
 
+const hypher = new Hypher(hyphenation);
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
   const todayDate = moment();
-  fs.readFile(`./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.md`, 'utf8', function (err, data) {
+  const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.md`;
 
-    const fileData = readFile(data);
+  fs.readFile(pathToFile, 'utf8', function (err, data) {
 
-    res.render('index', {
+    const fileData = parseFileData(data);
+    const renderParams = {
       title: fileData.attributes.title || 'Empty title',
       date: {
         before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
@@ -43,23 +46,26 @@ router.get('/', function (req, res, next) {
         after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
       },
       body: fileData.text
-    });
+    };
+
+    res.render('index', renderParams);
   });
 });
 
 /* GET Date page. */
 router.get('/:monthId-:dayId', function (req, res, next) {
 
-  fs.readFile(`./pages/${req.params.monthId}/${req.params.dayId}.md`, 'utf8', function (err, data) {
+  const pathToFile = `./pages/${req.params.monthId}/${req.params.dayId}.md`;
+
+  fs.readFile(pathToFile, 'utf8', function (err, data) {
 
     if (err) {
       console.log(err);
       res.render('error');
     }
 
-    const fileData = readFile(data);
-
-    res.render('detail', {
+    const fileData = parseFileData(data);
+    const renderParams = {
       title: fileData.attributes.title || 'Empty title',
       date: {
         before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
@@ -67,18 +73,19 @@ router.get('/:monthId-:dayId', function (req, res, next) {
         after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
       },
       body: fileData.text
-    });
+    };
+
+    res.render('detail', renderParams);
   });
 });
 
-function readFile(fileContent: any) {
+function parseFileData(fileContent: string) {
 
   const content = frontMatter(fileContent);
-  let result = tp.execute(content.body);
 
-  result = md.render(result);
+  let result = typograf.execute(content.body);
+  result = markdownIt.render(result);
 
-  const hypher = new Hypher(hyphenation);
   result = hypher.hyphenateText(result, 5);
 
   return {
