@@ -32,24 +32,17 @@ router.get('/', function (req, res, next) {
   const todayDate = moment();
   fs.readFile(`./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.md`, 'utf8', function (err, data) {
 
-    const content = frontMatter(data);
-    const contentAttributes: Article = content.attributes as Article;
-    let result = tp.execute(content.body);
-
-    result = md.render(result);
-
-    const hypher = new Hypher(hyphenation);
-    result = hypher.hyphenateText(result, 5);
+    const fileData = readFile(data);
 
     res.render('index', {
-      title: contentAttributes.title || 'Empty title',
+      title: fileData.attributes.title || 'Empty title',
       date: {
-        before: moment(contentAttributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(contentAttributes.date).format('MM-DD'),
+        before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
+        current: moment(fileData.attributes.date).format('MM-DD'),
         today: moment().format('MM-DD'),
-        after: moment(contentAttributes.date).add(1, 'day').format('MM-DD')
+        after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
       },
-      body: result
+      body: fileData.text
     });
   });
 });
@@ -64,26 +57,35 @@ router.get('/:monthId-:dayId', function (req, res, next) {
       res.render('error');
     }
 
-    const content = frontMatter(data);
-    const contentAttributes: Article = content.attributes as Article;
-    let result = tp.execute(content.body);
-
-    result = md.render(result);
-
-    const hypher = new Hypher(hyphenation);
-    result = hypher.hyphenate(result);
+    const fileData = readFile(data);
 
     res.render('detail', {
-      title: contentAttributes.title || 'Empty title',
+      title: fileData.attributes.title || 'Empty title',
       date: {
-        before: moment(contentAttributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(contentAttributes.date).format('MM-DD'),
-        after: moment(contentAttributes.date).add(1, 'day').format('MM-DD')
+        before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
+        current: moment(fileData.attributes.date).format('MM-DD'),
+        after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
       },
-      body: result
+      body: fileData.text
     });
   });
 });
+
+function readFile(fileContent: any) {
+
+  const content = frontMatter(fileContent);
+  let result = tp.execute(content.body);
+
+  result = md.render(result);
+
+  const hypher = new Hypher(hyphenation);
+  result = hypher.hyphenateText(result, 5);
+
+  return {
+    attributes: content.attributes as Article,
+    text: result
+  };
+}
 
 // router.get('/writeFiles', function (req, res, next) {
 
