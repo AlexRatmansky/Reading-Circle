@@ -29,7 +29,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "express": "~4.16.2",
-    "front-matter": "^2.3.0",
+    "gray-matter": "^3.1.1",
     "hyphenation.ru": "^0.2.1",
     "hypher": "^0.2.5",
     "markdown-it": "^8.4.0",

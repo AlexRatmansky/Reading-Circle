@@ -3,7 +3,7 @@ const router = express.Router();
 
 import * as fs from 'fs';
 import * as moment from 'moment';
-import * as frontMatter from 'front-matter';
+import * as grayMatter from 'gray-matter';
 import * as MarkdownIt from 'markdown-it';
 
 const Typograf = require('typograf');
@@ -81,15 +81,15 @@ router.get('/:monthId-:dayId', function (req, res, next) {
 
 function parseFileData(fileContent: string) {
 
-  const content = frontMatter(fileContent);
+  const content = grayMatter(fileContent);
 
-  let result = typograf.execute(content.body);
+  let result = typograf.execute(content.content);
   result = markdownIt.render(result);
 
   result = hypher.hyphenateText(result, 5);
 
   return {
-    attributes: content.attributes as Article,
+    attributes: content.data as Article,
     text: result
   };
 }
