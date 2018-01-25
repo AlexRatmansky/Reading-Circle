@@ -5,8 +5,8 @@ import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 
-import index from './routes/index';
-import users from './routes/users';
+import index from './controllers/index';
+import users from './controllers/users';
 
 const app = express();
 
