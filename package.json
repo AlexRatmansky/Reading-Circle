@@ -6,13 +6,15 @@
     "start": "npm run serve",
     "serve": "node ./bin/www",
     "build": "npm run copy-static-assets && npm run build-stylus && npm run build-ts && npm run tslint",
-    "build-stylus": "stylus src/public/css/style.styl -o dist/public/css/style.css",
-    "watch-stylus": "stylus -w src/public/css/style.styl -o dist/public/css/style.css",
+    "build-stylus": "stylus src/css/style.styl -o dist/public/css/style.css",
+    "watch-stylus": "stylus -w src/css/style.styl -o dist/public/css/style.css",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "watch-node": "nodemon ./bin/www",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "copy-static-assets": "ts-node copyStaticAssets.ts",
+    "make-static-dir": "mkdir -p dist/public/css/",
+    "copy-static": "cp -R src/public/ dist/public/",
+    "copy-static-assets": "npm run make-static-dir && npm run copy-static",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Stylus,TypeScript,Node\" -c \"red.bold,blue.bold,green.bold\" \"npm run watch-stylus\" \"npm run watch-ts\" \"npm run watch-node\"",
     "dev": "npm run build && npm run watch",
     "prod": "npm run build-ts && npm run watch-node"
@@ -29,10 +31,11 @@
     "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "express": "~4.16.2",
-    "front-matter": "^2.3.0",
+    "gray-matter": "^3.1.1",
     "hyphenation.ru": "^0.2.1",
     "hypher": "^0.2.5",
     "markdown-it": "^8.4.0",
+    "markdown-it-decorate": "^1.2.2",
     "markdown-it-footnote": "^3.0.1",
     "moment": "^2.20.1",
     "morgan": "~1.9.0",
@@ -44,5 +47,12 @@
     "tslint": "^5.9.1",
     "typescript": "^2.6.2",
     "typograf": "^6.6.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": "2500"
   }
 }
