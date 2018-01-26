@@ -17,6 +17,7 @@ const markdownIt = new MarkdownIt({
   linkify: true,
   typographer: true
 })
+  .use(require('markdown-it-decorate'))
   .use(require('markdown-it-footnote'));
 
 const typograf = new Typograf({
@@ -84,9 +85,8 @@ function parseFileData(fileContent: string) {
   const content = grayMatter(fileContent);
 
   let result = typograf.execute(content.content);
-  result = markdownIt.render(result);
-
   result = hypher.hyphenateText(result, 5);
+  result = markdownIt.render(result);
 
   return {
     attributes: content.data as Article,
