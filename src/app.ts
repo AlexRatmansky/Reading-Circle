@@ -8,7 +8,11 @@ import * as bodyParser from 'body-parser';
 import index from './controllers/index';
 import users from './controllers/users';
 
+import * as moment from 'moment';
+moment.lang('ru');
+
 const app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));

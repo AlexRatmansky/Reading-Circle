@@ -70,7 +70,7 @@ router.get('/:monthId-:dayId', function (req, res, next) {
       title: fileData.attributes.title || 'Empty title',
       date: {
         before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(fileData.attributes.date).format('MM-DD'),
+        current: moment(fileData.attributes.date).format('D MMMM'),
         after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
       },
       body: fileData.text
