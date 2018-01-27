@@ -13,11 +13,17 @@ html
     .wrapper
       .grid-center
 
-        h1
-          a(href='/') Круг чтения
+        header
+          h1
+            a(href='/') Круг чтения
+          h1= title
+          h2= date.current
+          //- p Сегодня #{date.current}
 
-        include components/calendar.pug
+          include components/calendar.pug
 
-        block content
+
+        main
+          block content
 
         include components/calendar.pug
