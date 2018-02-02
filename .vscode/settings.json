@@ -1,2 +1,22 @@
+// Place your settings in this file to overwrite default and user settings.
 {
+  "workbench.colorCustomizations": {
+    "activityBarBadge.background": "#ffffff",
+    "activityBarBadge.foreground": "#101010",
+    "activityBar.border": "#ffffff",
+    "badge.background": "#ffffff",
+    "badge.foreground": "#101010",
+    "statusBar.background": "#ffffff",
+    "statusBar.foreground": "#0C0A0A",
+    "statusBarItem.hoverBackground": "#dddddd",
+    "statusBarItem.activeBackground": "#bbbbbb"
+  },
+  "files.exclude": {
+    "**/.idea": true,
+    "**/.vscode": true
+  },
+  "editor.rulers": [
+    120
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
