@@ -106,12 +106,12 @@ function parseFileData(fileContent: string) {
 //     let fileMonth = currentDate.format('MM');
 //     let fileDay = currentDate.format('DD');
 
-//     let fielPath = `${fileMonth}/${fileDay}`;
+//     let filePath = `${fileMonth}/${fileDay}`;
 
 //     let fileText = `---
 // title: '${fileYear}-${fileMonth}-${fileDay}'
 // date: '${fileYear}-${fileMonth}-${fileDay}'
-// path: '${fielPath}'
+// path: '${filePath}'
 // ---
 
 // # ${fileYear}-${fileMonth}-${fileDay}
@@ -121,9 +121,9 @@ function parseFileData(fileContent: string) {
 //       fs.mkdirSync(`./pages/${fileMonth}`);
 //     }
 
-//     fs.writeFile(`./pages/${fielPath}.md`, fileText, (err) => {
+//     fs.writeFile(`./pages/${filePath}.md`, fileText, (err) => {
 //       if (err) throw err;
-//       console.log(`page ${fielPath}.md saved`)
+//       console.log(`page ${filePath}.md saved`)
 //     })
 
 //     currentDate.add(1, 'day');
