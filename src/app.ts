@@ -7,9 +7,10 @@ import * as bodyParser from 'body-parser';
 
 import index from './controllers/index';
 import users from './controllers/users';
+import feed from './controllers/feed';
 
 import * as moment from 'moment';
-moment.lang('ru');
+moment.locale('ru');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/feed', feed);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
