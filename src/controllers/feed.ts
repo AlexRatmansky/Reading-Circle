@@ -45,6 +45,7 @@ router.get('/rss', function (req, res, next) {
       body: fileData.text
     };
 
+    res.set('Content-Type', 'text/xml');
     res.render('rss', renderParams);
   });
 });
