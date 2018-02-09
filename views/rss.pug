@@ -13,7 +13,8 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
             item
                 title= title
                 link
-                    a(href="http://82.202.246.78/#{slug}", rel="nofollow") http://82.202.246.78/#{slug}
+                    a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
                 description #{body}
                 pubDate= date
-                guid(isPermaLink='false') <a href="http://82.202.246.78/#{slug}" rel="nofollow">http://82.202.246.78/#{slug}</a>
+                guid(isPermaLink='false')
+                    a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}

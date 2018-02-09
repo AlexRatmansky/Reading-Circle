@@ -40,8 +40,8 @@ router.get('/rss', function (req, res, next) {
     const fileData = parseFileData(data);
     const renderParams = {
       title: fileData.attributes.title || 'Empty title',
-      date: moment(fileData.attributes.date).utc(),
-      slug: `${todayDate.format('MM')}/${todayDate.format('DD')}`,
+      date: todayDate.toDate().toISOString(),
+      slug: `${todayDate.format('MM')}-${todayDate.format('DD')}`,
       body: fileData.text
     };
 
