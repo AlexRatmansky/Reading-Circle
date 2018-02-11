@@ -1,0 +1,26 @@
+
+title: '...'
+month: 03
+day: 10
+
+intro:
+  text:
+    - "..."
+  author:
+
+body:
+  - index: 1
+    text:
+      - "..."
+    author:
+
+  - index: 2
+    text:
+      - "..."
+    author:
+
+conclusion:
+  text:
+    - "..."
+  author:
+
