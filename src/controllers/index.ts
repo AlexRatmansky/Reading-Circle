@@ -94,42 +94,64 @@ function parseFileData(fileContent: string) {
   };
 }
 
-// router.get('/writeFiles', function (req, res, next) {
+router.get('/writeFiles', function (req, res, next) {
 
-//   let startDate = moment([2000, 00, 06]);
-//   let endDate = moment([2000, 11, 31]);
-//   let currentDate = startDate;
+  const startDate = moment([2000, 0, 1]);
+  const endDate = moment([2000, 11, 31]);
+  const currentDate = startDate;
 
-//   while (currentDate.isSameOrBefore(endDate)) {
+  if (!fs.existsSync(`./pages-yaml`)) {
+    fs.mkdirSync(`./pages-yaml/`);
+  }
 
-//     let fileYear = currentDate.format('YYYY');
-//     let fileMonth = currentDate.format('MM');
-//     let fileDay = currentDate.format('DD');
+  while (currentDate.isSameOrBefore(endDate)) {
 
-//     let filePath = `${fileMonth}/${fileDay}`;
+    const fileMonth = currentDate.format('MM');
+    const fileDay = currentDate.format('DD');
 
-//     let fileText = `---
-// title: '${fileYear}-${fileMonth}-${fileDay}'
-// date: '${fileYear}-${fileMonth}-${fileDay}'
-// path: '${filePath}'
-// ---
+    const filePath = `${fileMonth}/${fileDay}`;
 
-// # ${fileYear}-${fileMonth}-${fileDay}
-// `;
+    const fileText = `
+title: '...'
+month: ${fileMonth}
+day: ${fileDay}
 
-//     if (!fs.existsSync(`./pages/${fileMonth}`)) {
-//       fs.mkdirSync(`./pages/${fileMonth}`);
-//     }
+intro:
+  text:
+    - "..."
+  author:
 
-//     fs.writeFile(`./pages/${filePath}.md`, fileText, (err) => {
-//       if (err) throw err;
-//       console.log(`page ${filePath}.md saved`)
-//     })
+body:
+  - index: 1
+    text:
+      - "..."
+    author:
 
-//     currentDate.add(1, 'day');
-//   }
+  - index: 2
+    text:
+      - "..."
+    author:
 
-//   res.render('writeFiles');
-// });
+conclusion:
+  text:
+    - "..."
+  author:
+
+`;
+
+    if (!fs.existsSync(`./pages-yaml/${fileMonth}`)) {
+      fs.mkdirSync(`./pages-yaml/${fileMonth}`);
+    }
+
+    fs.writeFile(`./pages-yaml/${filePath}.yml`, fileText, (err) => {
+      if (err) throw err;
+      console.log(`page ${filePath}.md saved`);
+    });
+
+    currentDate.add(1, 'day');
+  }
+
+  res.render('writeFiles');
+});
 
 export default router;
