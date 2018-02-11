@@ -3,6 +3,7 @@ const router = express.Router();
 
 import * as fs from 'fs';
 import * as moment from 'moment';
+import * as jsYaml from 'js-yaml';
 import * as grayMatter from 'gray-matter';
 import * as MarkdownIt from 'markdown-it';
 
@@ -38,15 +39,17 @@ router.get('/', function (req, res, next) {
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
     const fileData = parseFileData(data);
+
     const renderParams = {
-      title: fileData.attributes.title || 'Empty title',
+      title: fileData.title || 'Empty title',
       date: {
-        before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(fileData.attributes.date).format('MM-DD'),
-        today: moment().format('MM-DD'),
-        after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
+        before: moment(`2000-${fileData.month}-${fileData.day}`).subtract(1, 'day').format('MM-DD'),
+        current: moment(`2000-${fileData.month}-${fileData.day}`).format('D MMMM'),
+        after: moment(`2000-${fileData.month}-${fileData.day}`).add(1, 'day').format('MM-DD')
       },
-      body: fileData.text
+      intro: fileData.intro,
+      body: fileData.body,
+      conclusion: fileData.conclusion,
     };
 
     res.render('index', renderParams);
@@ -56,7 +59,7 @@ router.get('/', function (req, res, next) {
 /* GET Date page. */
 router.get('/:monthId-:dayId', function (req, res, next) {
 
-  const pathToFile = `./pages/${req.params.monthId}/${req.params.dayId}.md`;
+  const pathToFile = `./pages-yaml/${req.params.monthId}/${req.params.dayId}.yml`;
 
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
@@ -66,14 +69,17 @@ router.get('/:monthId-:dayId', function (req, res, next) {
     }
 
     const fileData = parseFileData(data);
+
     const renderParams = {
-      title: fileData.attributes.title || 'Empty title',
+      title: fileData.title || 'Empty title',
       date: {
-        before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(fileData.attributes.date).format('D MMMM'),
-        after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
+        before: moment(`2000-${fileData.month}-${fileData.day}`).subtract(1, 'day').format('MM-DD'),
+        current: moment(`2000-${fileData.month}-${fileData.day}`).format('D MMMM'),
+        after: moment(`2000-${fileData.month}-${fileData.day}`).add(1, 'day').format('MM-DD')
       },
-      body: fileData.text
+      intro: fileData.intro,
+      body: fileData.body,
+      conclusion: fileData.conclusion,
     };
 
     res.render('detail', renderParams);
@@ -82,16 +88,26 @@ router.get('/:monthId-:dayId', function (req, res, next) {
 
 function parseFileData(fileContent: string) {
 
-  const content = grayMatter(fileContent);
+  const content = jsYaml.load(fileContent);
 
-  let result = typograf.execute(content.content);
-  result = hypher.hyphenateText(result, 5);
-  result = markdownIt.render(result);
+  content.intro.text.forEach((item: string) => {
+    typograf.execute(item);
+    hypher.hyphenateText(item, 5);
+  });
 
-  return {
-    attributes: content.data as Article,
-    text: result
-  };
+  content.body.forEach((bodyItem: any) => {
+    bodyItem.text.forEach((item: string) => {
+      typograf.execute(item);
+      hypher.hyphenateText(item, 5);
+    });
+  });
+
+  content.conclusion.text.forEach((item: string) => {
+    typograf.execute(item);
+    hypher.hyphenateText(item, 5);
+  });
+
+  return content;
 }
 
 router.get('/writeFiles', function (req, res, next) {

@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/cookie-parser": "^1.4.1",
     "@types/express": "^4.11.0",
+    "@types/js-yaml": "^3.10.1",
     "@types/markdown-it": "0.0.4",
     "@types/morgan": "^1.7.35",
     "@types/serve-favicon": "^2.2.30",
@@ -32,9 +33,9 @@
     "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "express": "~4.16.2",
-    "gray-matter": "^3.1.1",
     "hyphenation.ru": "^0.2.1",
     "hypher": "^0.2.5",
+    "js-yaml": "^3.10.0",
     "markdown-it": "^8.4.0",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-footnote": "^3.0.1",
