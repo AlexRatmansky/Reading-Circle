@@ -36,7 +36,7 @@
     "hyphenation.ru": "^0.2.1",
     "hypher": "^0.2.5",
     "js-yaml": "^3.10.0",
-    "markdown-it": "^8.4.0",
+    "markdown-it": "^8.4.1",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-footnote": "^3.0.1",
     "moment": "^2.20.1",
@@ -47,7 +47,7 @@
     "stylus": "^0.54.5",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
-    "typescript": "^2.7.1",
+    "typescript": "^2.7.2",
     "typograf": "^6.6.1"
   },
   "nodemonConfig": {
