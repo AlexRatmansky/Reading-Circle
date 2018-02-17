@@ -17,11 +17,14 @@ router.get('/rss', function (req, res, next) {
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
     const fileData = parseArticleFileData(data);
+
     const renderParams = {
-      title: fileData.attributes.title || 'Empty title',
+      title: fileData.title || 'Empty title',
       date: todayDate.toDate().toISOString(),
       slug: `${todayDate.format('MM')}-${todayDate.format('DD')}`,
-      body: fileData.text
+      intro: fileData.intro,
+      body: fileData.body,
+      conclusion: fileData.conclusion,
     };
 
     res.set('Content-Type', 'text/xml');
