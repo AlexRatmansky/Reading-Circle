@@ -12,8 +12,8 @@ export type ert = {
 
 export type fileData = {
   title: string
-  month: string
-  day: string
+  month: "string"
+  day: "string"
 
   intro: ert
   body: [ert]
