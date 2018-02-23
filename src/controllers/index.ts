@@ -12,7 +12,7 @@ import { Article } from 'Article';
 router.get('/', function (req, res, next) {
 
   const todayDate = moment();
-  const pathToFile = `./pages-yaml/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;
+  const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;
 
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
@@ -37,7 +37,7 @@ router.get('/', function (req, res, next) {
 /* GET Date page. */
 router.get('/:monthId-:dayId', function (req, res, next) {
 
-  const pathToFile = `./pages-yaml/${req.params.monthId}/${req.params.dayId}.yml`;
+  const pathToFile = `./pages/${req.params.monthId}/${req.params.dayId}.yml`;
 
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
