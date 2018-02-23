@@ -28,6 +28,8 @@ export function parseArticleFileData(fileContent: string) {
 
   const content = jsYaml.load(fileContent);
 
+  console.log(content);
+
   content.intro.text.forEach((item: string) => {
     typograf.execute(item);
     hypher.hyphenateText(item, 5);
