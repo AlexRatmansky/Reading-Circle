@@ -12,7 +12,7 @@ import { Article } from 'Article';
 router.get('/', function (req, res, next) {
 
   const todayDate = moment();
-  const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.md`;
+  const pathToFile = `./pages-yaml/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;
 
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
