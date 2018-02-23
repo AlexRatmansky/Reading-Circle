@@ -14,7 +14,7 @@
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "clear": "rm -rf node_modules package-lock.json dis",
     "make-static-dir": "mkdir -p dist/css/",
-    "copy-static": "cp -R src/public/ dist",
+    "copy-static": "cp -R src/public/* dist",
     "copy-static-assets": "npm run make-static-dir && npm run copy-static",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Stylus,TypeScript,Node\" -c \"red.bold,blue.bold,green.bold\" \"npm run watch-stylus\" \"npm run watch-ts\" \"npm run watch-node\"",
     "dev": "npm run build && npm run watch",
