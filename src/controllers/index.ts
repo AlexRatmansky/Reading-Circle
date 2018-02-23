@@ -3,50 +3,31 @@ const router = express.Router();
 
 import * as fs from 'fs';
 import * as moment from 'moment';
-import * as grayMatter from 'gray-matter';
-import * as MarkdownIt from 'markdown-it';
 
-const Typograf = require('typograf');
-const Hypher = require('hypher');
-const hyphenation = require('hyphenation.ru');
+import { parseArticleFileData } from '../helpers/file';
 
 import { Article } from 'Article';
-
-const markdownIt = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true
-})
-  .use(require('markdown-it-decorate'))
-  .use(require('markdown-it-footnote'));
-
-const typograf = new Typograf({
-  locale: 'ru',
-  htmlEntity: {
-    type: 'name'
-  }
-});
-
-const hypher = new Hypher(hyphenation);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
   const todayDate = moment();
-  const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.md`;
+  const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;
 
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
-    const fileData = parseFileData(data);
+    const fileData = parseArticleFileData(data);
+
     const renderParams = {
-      title: fileData.attributes.title || 'Empty title',
+      title: fileData.title || 'Empty title',
       date: {
-        before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(fileData.attributes.date).format('MM-DD'),
-        today: moment().format('MM-DD'),
-        after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
+        before: moment(`2000-${fileData.month}-${fileData.day}`).subtract(1, 'day').format('MM-DD'),
+        current: moment(`2000-${fileData.month}-${fileData.day}`).format('D MMMM'),
+        after: moment(`2000-${fileData.month}-${fileData.day}`).add(1, 'day').format('MM-DD')
       },
-      body: fileData.text
+      intro: fileData.intro,
+      body: fileData.body,
+      conclusion: fileData.conclusion,
     };
 
     res.render('index', renderParams);
@@ -56,7 +37,7 @@ router.get('/', function (req, res, next) {
 /* GET Date page. */
 router.get('/:monthId-:dayId', function (req, res, next) {
 
-  const pathToFile = `./pages/${req.params.monthId}/${req.params.dayId}.md`;
+  const pathToFile = `./pages/${req.params.monthId}/${req.params.dayId}.yml`;
 
   fs.readFile(pathToFile, 'utf8', function (err, data) {
 
@@ -65,71 +46,22 @@ router.get('/:monthId-:dayId', function (req, res, next) {
       res.render('error');
     }
 
-    const fileData = parseFileData(data);
+    const fileData = parseArticleFileData(data);
+
     const renderParams = {
-      title: fileData.attributes.title || 'Empty title',
+      title: fileData.title || 'Empty title',
       date: {
-        before: moment(fileData.attributes.date).subtract(1, 'day').format('MM-DD'),
-        current: moment(fileData.attributes.date).format('D MMMM'),
-        after: moment(fileData.attributes.date).add(1, 'day').format('MM-DD')
+        before: moment(`2000-${fileData.month}-${fileData.day}`).subtract(1, 'day').format('MM-DD'),
+        current: moment(`2000-${fileData.month}-${fileData.day}`).format('D MMMM'),
+        after: moment(`2000-${fileData.month}-${fileData.day}`).add(1, 'day').format('MM-DD')
       },
-      body: fileData.text
+      intro: fileData.intro,
+      body: fileData.body,
+      conclusion: fileData.conclusion,
     };
 
     res.render('detail', renderParams);
   });
 });
-
-function parseFileData(fileContent: string) {
-
-  const content = grayMatter(fileContent);
-
-  let result = typograf.execute(content.content);
-  result = hypher.hyphenateText(result, 5);
-  result = markdownIt.render(result);
-
-  return {
-    attributes: content.data as Article,
-    text: result
-  };
-}
-
-// router.get('/writeFiles', function (req, res, next) {
-
-//   let startDate = moment([2000, 00, 06]);
-//   let endDate = moment([2000, 11, 31]);
-//   let currentDate = startDate;
-
-//   while (currentDate.isSameOrBefore(endDate)) {
-
-//     let fileYear = currentDate.format('YYYY');
-//     let fileMonth = currentDate.format('MM');
-//     let fileDay = currentDate.format('DD');
-
-//     let filePath = `${fileMonth}/${fileDay}`;
-
-//     let fileText = `---
-// title: '${fileYear}-${fileMonth}-${fileDay}'
-// date: '${fileYear}-${fileMonth}-${fileDay}'
-// path: '${filePath}'
-// ---
-
-// # ${fileYear}-${fileMonth}-${fileDay}
-// `;
-
-//     if (!fs.existsSync(`./pages/${fileMonth}`)) {
-//       fs.mkdirSync(`./pages/${fileMonth}`);
-//     }
-
-//     fs.writeFile(`./pages/${filePath}.md`, fileText, (err) => {
-//       if (err) throw err;
-//       console.log(`page ${filePath}.md saved`)
-//     })
-
-//     currentDate.add(1, 'day');
-//   }
-
-//   res.render('writeFiles');
-// });
 
 export default router;

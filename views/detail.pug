@@ -9,4 +9,28 @@ block content
       br
       =title
 
-    | !{body}
+    each paragraph in intro.text
+      p
+        b= paragraph
+
+      if intro.author
+        p
+          em= intro.author
+
+    each item in body
+      h2= item.index
+
+      each paragraph in item.text
+        p= paragraph
+
+      if item.author
+        p
+          em= item.author
+
+    each paragraph in conclusion.text
+      p
+        b= paragraph
+
+      if conclusion.author
+        p
+          em= conclusion.author
