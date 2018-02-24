@@ -16,16 +16,16 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
           a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
 
         description
+          | <![CDATA[
           each paragraph in intro.text
-            h2= paragraph
+            | #[h2= paragraph]
 
             if intro.author
               p
                 em= intro.author
 
           each item in body
-            div
-              h3= item.index
+            h3= item.index
 
             each paragraph in item.text
               p= paragraph
@@ -43,6 +43,7 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
             if conclusion.author
               p
                 em= conclusion.author
+          | ]]>
 
         pubDate= date
         guid(isPermaLink='false')
