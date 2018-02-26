@@ -13,9 +13,9 @@ block content
       p
         b= paragraph
 
-      if intro.author
-        p
-          em= intro.author
+    if intro.author
+      p
+        em= intro.author
 
     each item in body
       h2= item.index
@@ -31,6 +31,6 @@ block content
       p
         b= paragraph
 
-      if conclusion.author
-        p
-          em= conclusion.author
+    if conclusion.author
+      p
+        em= conclusion.author

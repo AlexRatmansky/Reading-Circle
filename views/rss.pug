@@ -10,41 +10,41 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
     language ru-Ru
     lastBuildDate= date
 
-      item
-        title= title
-        link
-          a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
+    item
+      title= title
+      link
+        a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
 
-        description
-          | <![CDATA[
-          each paragraph in intro.text
-            | #[h2= paragraph]
+      description
+        | <![CDATA[
+        each paragraph in intro.text
+          h2= paragraph
 
-            if intro.author
-              p
-                em= intro.author
+        if intro.author
+          p
+            em= intro.author
 
-          each item in body
-            h3= item.index
+        each item in body
+          h3= item.index
 
-            each paragraph in item.text
-              p= paragraph
+          each paragraph in item.text
+            p= paragraph
 
-              if item.author
-                p
-                  em= item.author
-
-          hr
-
-          each paragraph in conclusion.text
+          if item.author
             p
-              i= paragraph
+              em= item.author
 
-            if conclusion.author
-              p
-                em= conclusion.author
-          | ]]>
+        hr
 
-        pubDate= date
-        guid(isPermaLink='false')
-          a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
+        each paragraph in conclusion.text
+          p
+            i= paragraph
+
+        if conclusion.author
+          p
+            em= conclusion.author
+        | ]]>
+
+      pubDate= date
+      guid(isPermaLink='false')
+        a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
