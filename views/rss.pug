@@ -1,9 +1,15 @@
+mixin escape
+  - var oldBuf = pug_html;
+  - pug_html = "";
+  block
+  - pug_html = oldBuf + pug.escape(pug_html);
+
 doctype xml
-rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
+rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
   channel
     title Круг чтения
     link http://82.202.246.78/
-    atom:link(href='http://82.202.246.78/feed/rss', rel='self', type='application/rss+xml')
+    atom:link(href="http://82.202.246.78/feed/rss", rel="self", type="application/rss+xml")
 
     description Круг чтения. Лев Николаевич Толстой.
 
@@ -16,35 +22,36 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
         a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
 
       description
-        | <![CDATA[
-        each paragraph in intro.text
-          h2= paragraph
 
-        if intro.author
-          p
-            em= intro.author
+        +escape()
 
-        each item in body
-          h3= item.index
+          each paragraph in intro.text
+            h2= paragraph
 
-          each paragraph in item.text
-            p= paragraph
-
-          if item.author
+          if intro.author
             p
-              em= item.author
+              em= intro.author
 
-        hr
+          each item in body
+            h3= item.index
 
-        each paragraph in conclusion.text
-          p
-            i= paragraph
+            each paragraph in item.text
+              p= paragraph
 
-        if conclusion.author
-          p
-            em= conclusion.author
-        | ]]>
+            if item.author
+              p
+                em= item.author
+
+          hr
+
+          each paragraph in conclusion.text
+            p
+              i= paragraph
+
+          if conclusion.author
+            p
+              em= conclusion.author
 
       pubDate= date
-      guid(isPermaLink='false')
+      guid(isPermaLink="false")
         a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
