@@ -1,3 +1,9 @@
+mixin escape
+  - var oldBuf = pug_html;
+  - pug_html = '';
+  block
+  - pug_html = oldBuf + pug.escape(pug_html);
+
 doctype xml
 rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
   channel
@@ -16,34 +22,33 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
         a(href="http://82.202.246.78/" + slug, rel="nofollow") http://82.202.246.78/#{slug}
 
       description
-        | <![CDATA[
-        each paragraph in intro.text
-          h2= paragraph
+        +escape()
+          each paragraph in intro.text
+            h2= paragraph
 
-        if intro.author
-          p
-            em= intro.author
-
-        each item in body
-          h3= item.index
-
-          each paragraph in item.text
-            p= paragraph
-
-          if item.author
+          if intro.author
             p
-              em= item.author
+              em= intro.author
 
-        hr
+          each item in body
+            h3= item.index
 
-        each paragraph in conclusion.text
-          p
-            i= paragraph
+            each paragraph in item.text
+              p= paragraph
 
-        if conclusion.author
-          p
-            em= conclusion.author
-        | ]]>
+            if item.author
+              p
+                em= item.author
+
+          hr
+
+          each paragraph in conclusion.text
+            p
+              i= paragraph
+
+          if conclusion.author
+            p
+              em= conclusion.author
 
       pubDate= date
       guid(isPermaLink='false')
