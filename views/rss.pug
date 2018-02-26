@@ -20,9 +20,9 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
           each paragraph in intro.text
             h2= paragraph
 
-            if intro.author
-              p
-                em= intro.author
+          if intro.author
+            p
+              em= intro.author
 
           each item in body
             h3= item.index
@@ -30,9 +30,9 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
             each paragraph in item.text
               p= paragraph
 
-              if item.author
-                p
-                  em= item.author
+            if item.author
+              p
+                em= item.author
 
           hr
 
@@ -40,9 +40,9 @@ rss(version='2.0', xmlns:atom='http://www.w3.org/2005/Atom')
             p
               i= paragraph
 
-            if conclusion.author
-              p
-                em= conclusion.author
+          if conclusion.author
+            p
+              em= conclusion.author
           | ]]>
 
         pubDate= date
