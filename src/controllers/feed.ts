@@ -28,7 +28,7 @@ router.get('/rss', function (req, res, next) {
     };
 
     res.set('Content-Type', 'text/xml');
-    res.render('rss', renderParams);
+    res.render('feed/rss', renderParams);
   });
 });
 
