@@ -1,8 +1,4 @@
-mixin escape
-  - var oldBuf = pug_html;
-  - pug_html = "";
-  block
-  - pug_html = oldBuf + pug.escape(pug_html);
+include ../mixin.pug
 
 doctype xml
 rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
