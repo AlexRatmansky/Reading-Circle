@@ -18,7 +18,7 @@ const markdownIt = new MarkdownIt({
 const typograf = new Typograf({
   locale: 'ru',
   htmlEntity: {
-    type: 'name'
+    type: 'digits'
   }
 });
 
@@ -28,21 +28,27 @@ export function parseArticleFileData(fileContent: string) {
 
   const content = jsYaml.load(fileContent);
 
-  content.intro.text.forEach((item: string) => {
-    typograf.execute(item);
-    hypher.hyphenateText(item, 5);
+  content.intro.text.forEach((item: string, index: number, arr: any) => {
+    let returnText = item;
+    returnText = typograf.execute(returnText);
+    returnText = hypher.hyphenateText(returnText, 5);
+    arr[index] = returnText;
   });
 
   content.body.forEach((bodyItem: any) => {
-    bodyItem.text.forEach((item: string) => {
-      typograf.execute(item);
-      hypher.hyphenateText(item, 5);
+    bodyItem.text.forEach((item: string, index: number, arr: any) => {
+      let returnText = item;
+      returnText = typograf.execute(returnText);
+      returnText = hypher.hyphenateText(returnText, 5);
+      arr[index] = returnText;
     });
   });
 
-  content.conclusion.text.forEach((item: string) => {
-    typograf.execute(item);
-    hypher.hyphenateText(item, 5);
+  content.conclusion.text.forEach((item: string, index: number, arr: any) => {
+    let returnText = item;
+    returnText = typograf.execute(returnText);
+    returnText = hypher.hyphenateText(returnText, 5);
+    arr[index] = returnText;
   });
 
   return content;
