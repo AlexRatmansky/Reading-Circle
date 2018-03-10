@@ -13,19 +13,21 @@ section.content-wrapper
         em= intro.author
 
   each item in body
-    h4.body-item__index= item.index
+    .body-item
+      h4.body-item__index
+        |#{item.index}
 
-    each paragraph in item.text
-      p= paragraph
+      each paragraph in item.text
+        p.body-item__text
+          |#{paragraph}
 
-    if item.author
-      p
-        em= item.author
+      if item.author
+        p.body-item__author
+          |#{item.author}
 
   .conclusion
     each paragraph in conclusion.text
       p= paragraph
 
     if conclusion.author
-      p
-        em= conclusion.author
+      p= conclusion.author

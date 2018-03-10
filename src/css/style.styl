@@ -18,18 +18,19 @@ body {
 
 .content-wrapper {
   display: grid;
-  grid-template-columns: 1fr minmax(auto, 700px) 1fr;
+  grid-template-columns: 1fr minmax(auto, 85px) minmax(auto, 330px) minmax(auto, 85px) 1fr;
   grid-gap: 0;
 
   .title,
+  .body-item,
   p, h1, h2, h3, h4, h5, h6, ol, ul, hr, section {
-    grid-column: 2;
+    grid-column: 2/5;
   }
 }
 
 .title {
   text-align: center;
-  margin: 0 0 120px;
+  margin: 0 0 100px;
 
   &__date {
     font-size: 48px;
@@ -52,7 +53,7 @@ body {
 }
 
 .intro, .conclusion {
-  grid-column-start: 1;
+  grid-column-start: 3;
   grid-column-end: 4;
 
   text-align: center;
@@ -75,6 +76,7 @@ body {
 }
 
 .body-item {
+  margin-bottom: 60px;
 
   &__index {
     text-align: center;
@@ -84,10 +86,18 @@ body {
     margin: 0 0 25px;
   }
 
-  & p {
-    margin: 0;
+  &__text {
+    margin: 0 0 18px;
     font-size: 18px;
     line-height: 27px;
     font-weight: normal;
+  }
+
+  &__author {
+    text-align: center;
+    color: $brandRed;
+    font-size: 18px;
+    line-height: 27px;
+    font-style: italic;
   }
 }
