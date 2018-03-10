@@ -1,0 +1,33 @@
+section.content-wrapper
+
+  .title
+    h2.title__date= date.current
+    h3.title__theme= title
+
+  .intro
+    each paragraph in intro.text
+      p= paragraph
+
+    if intro.author
+      p
+        em= intro.author
+
+  each item in body
+    .body-item
+      h4.body-item__index
+        |#{item.index}
+
+      each paragraph in item.text
+        p.body-item__text
+          |#{paragraph}
+
+      if item.author
+        p.body-item__author
+          |#{item.author}
+
+  .conclusion
+    each paragraph in conclusion.text
+      p= paragraph
+
+    if conclusion.author
+      p= conclusion.author
