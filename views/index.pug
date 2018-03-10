@@ -4,21 +4,20 @@ block content
 
   section.content-wrapper
 
-    h1
-      span.date= date.current
-      br
-      =title
+    .title
+      h2.title__date= date.current
+      h3.title__theme= title
 
-    each paragraph in intro.text
-      p
-        b= paragraph
+    .intro
+      each paragraph in intro.text
+        p= paragraph
 
-    if intro.author
-      p
-        em= intro.author
+      if intro.author
+        p
+          em= intro.author
 
     each item in body
-      h2= item.index
+      h4.body-item__index= item.index
 
       each paragraph in item.text
         p= paragraph
@@ -27,10 +26,10 @@ block content
         p
           em= item.author
 
-    each paragraph in conclusion.text
-      p
-        b= paragraph
+    .conclusion
+      each paragraph in conclusion.text
+        p= paragraph
 
-    if conclusion.author
-      p
-        em= conclusion.author
+      if conclusion.author
+        p
+          em= conclusion.author
