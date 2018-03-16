@@ -30,24 +30,27 @@ export function parseArticleFileData(fileContent: string) {
 
   content.intro.text.forEach((item: string, index: number, arr: any) => {
     let returnText = item;
-    returnText = typograf.execute(returnText);
     returnText = hypher.hyphenateText(returnText, 5);
+    returnText = returnText.replace(/​+/g, '');
+    returnText = typograf.execute(returnText);
     arr[index] = returnText;
   });
 
   content.body.forEach((bodyItem: any) => {
     bodyItem.text.forEach((item: string, index: number, arr: any) => {
       let returnText = item;
-      returnText = typograf.execute(returnText);
       returnText = hypher.hyphenateText(returnText, 5);
+      returnText = returnText.replace(/​+/g, '');
+      returnText = typograf.execute(returnText);
       arr[index] = returnText;
     });
   });
 
   content.conclusion.text.forEach((item: string, index: number, arr: any) => {
     let returnText = item;
-    returnText = typograf.execute(returnText);
     returnText = hypher.hyphenateText(returnText, 5);
+    returnText = returnText.replace(/​+/g, '');
+    returnText = typograf.execute(returnText);
     arr[index] = returnText;
   });
 
