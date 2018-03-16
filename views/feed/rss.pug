@@ -26,27 +26,33 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
 
           if intro.author
             p
-              em= intro.author
+              em
+                | !{intro.author}
 
           each item in body
-            h3= item.index
+            h3
+              | !{item.index}
 
             each paragraph in item.text
-              p= paragraph
+              p
+                | !{paragraph}
 
             if item.author
               p
-                em= item.author
+                em
+                  | !{item.author}
 
           hr
 
           each paragraph in conclusion.text
             p
-              i= paragraph
+              i
+                | !{paragraph}
 
           if conclusion.author
             p
-              em= conclusion.author
+              em
+                | !{conclusion.author}
 
       pubDate= date
       guid(isPermaLink="false")
