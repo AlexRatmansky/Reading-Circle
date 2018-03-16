@@ -22,7 +22,8 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
         +escape()
 
           each paragraph in intro.text
-            h2= paragraph
+            h2
+              | !{paragraph}
 
           if intro.author
             p
