@@ -25,14 +25,20 @@ html
     .wrapper
       .grid-center
 
-        header
-          h1
-            a(href="/") Круг чтения
+        div.content-wrapper
+          header.header
 
-          p Сегодня #{date.current}
+            div
+              | &larr;
+              |
+              a(href=`/${date.before}`) назад
 
-          include components/calendar.pug
+            h1
+              a(href="/") Круг чтения
 
+            div
+              a(href=`/${date.after}`) вперед
+              |  &rarr;
 
         main
           block content
