@@ -23,7 +23,7 @@
   "dependencies": {
     "@types/cookie-parser": "^1.4.1",
     "@types/express": "^4.11.0",
-    "@types/js-yaml": "^3.10.1",
+    "@types/js-yaml": "^3.11.1",
     "@types/markdown-it": "0.0.4",
     "@types/morgan": "^1.7.35",
     "@types/serve-favicon": "^2.2.30",
@@ -39,7 +39,7 @@
     "markdown-it": "^8.4.1",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-footnote": "^3.0.1",
-    "moment": "^2.21.0",
+    "moment": "^2.22.1",
     "morgan": "~1.9.0",
     "pug": "^2.0.3",
     "serve-favicon": "~2.4.5",
@@ -47,8 +47,8 @@
     "stylus": "^0.54.5",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
-    "typescript": "^2.7.2",
-    "typograf": "^6.6.1"
+    "typescript": "^2.8.3",
+    "typograf": "^6.7.1"
   },
   "nodemonConfig": {
     "ignore": [
