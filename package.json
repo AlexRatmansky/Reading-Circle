@@ -27,7 +27,7 @@
     "@types/markdown-it": "0.0.4",
     "@types/morgan": "^1.7.35",
     "@types/serve-favicon": "^2.2.30",
-    "@types/shelljs": "^0.7.7",
+    "@types/shelljs": "^0.7.9",
     "body-parser": "~1.18.2",
     "concurrently": "^3.5.1",
     "cookie-parser": "~1.4.3",
@@ -43,12 +43,12 @@
     "morgan": "~1.9.0",
     "pug": "^2.0.3",
     "serve-favicon": "~2.4.5",
-    "shelljs": "^0.8.1",
+    "shelljs": "^0.8.2",
     "stylus": "^0.54.5",
     "ts-node": "^5.0.1",
-    "tslint": "^5.9.1",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.3",
-    "typograf": "^6.7.1"
+    "typograf": "^6.7.2"
   },
   "nodemonConfig": {
     "ignore": [
