@@ -5,7 +5,7 @@ const Typograf = require('typograf');
 const Hypher = require('hypher');
 const hyphenation = require('hyphenation.ru');
 
-import { Article } from 'Article';
+import { Article, FileData } from 'Article';
 
 const markdownIt = new MarkdownIt({
   html: true,
@@ -26,7 +26,7 @@ const hypher = new Hypher(hyphenation);
 
 export function parseArticleFileData(fileContent: string) {
 
-  const content = jsYaml.load(fileContent);
+  const content = jsYaml.load(fileContent) as FileData;
 
   content.intro.text.forEach((item: string, index: number, arr: any) => {
     let returnText = item;

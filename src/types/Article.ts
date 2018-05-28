@@ -4,18 +4,18 @@ export type Article = {
   path: string
 };
 
-export type ert = {
+export type TextBlock = {
   index?: number
   text: [string]
   author?: string
 };
 
-export type fileData = {
+export type FileData = {
   title: string
   month: 'string'
   day: 'string'
 
-  intro: ert
-  body: [ert]
-  conclusion: ert
+  intro: TextBlock
+  body: TextBlock[]
+  conclusion: TextBlock
 };
