@@ -30,6 +30,7 @@ body {
 
 .content-wrapper {
   display: grid;
+  max-width: 100%;
   grid-template-columns: 1fr minmax(auto, 85px) minmax(auto, 330px) minmax(auto, 85px) 1fr;
   grid-gap: 0;
 
@@ -45,7 +46,7 @@ body {
   margin: 0 0 100px;
 
   &__date {
-    font-size: 48px;
+    font-size: 32px;
     line-height: 1em;
     font-weight: normal;
     color: $brandRed;
@@ -53,7 +54,7 @@ body {
   }
 
   &__theme {
-    font-size: 144px;
+    font-size: 48px;
     line-height: 0.9em;
     font-weight: normal;
     margin: 0;
@@ -65,10 +66,12 @@ body {
 }
 
 .intro, .conclusion {
-  grid-column-start: 3;
-  grid-column-end: 4;
+  grid-column-start: 2;
+  grid-column-end: 5;
 
-  text-align: center;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 39px;
 
   p {
     font-size: 24px;
@@ -81,21 +84,20 @@ body {
   }
 }
 
-.intro, .conclusion {
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 39px;
+.conclusion {
+  padding-top: 48px;
+  border-top: 1px solid $brandRed;
 }
 
 .body-item {
   margin-bottom: 60px;
 
   &__index {
-    text-align: center;
+    text-align: left;
     color: $brandRed;
     font-size: 38px;
     font-weight: normal;
-    margin: 0 0 25px;
+    margin: 0 0 18px;
   }
 
   &__text {
@@ -106,7 +108,7 @@ body {
   }
 
   &__author {
-    text-align: center;
+    text-align: left;
     color: $brandRed;
     font-size: 18px;
     line-height: 27px;
