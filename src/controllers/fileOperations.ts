@@ -4,7 +4,7 @@ const router = express.Router();
 import * as fs from 'fs';
 import * as moment from 'moment';
 
-router.get('/writeFiles', function (req, res, next) {
+router.get('/writeFiles', function (req, res) {
 
   const startDate = moment([2000, 0, 1]);
   const endDate = moment([2000, 11, 31]);

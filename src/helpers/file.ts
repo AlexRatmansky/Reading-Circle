@@ -1,19 +1,10 @@
 import * as jsYaml from 'js-yaml';
-import * as MarkdownIt from 'markdown-it';
 
 const Typograf = require('typograf');
 const Hypher = require('hypher');
 const hyphenation = require('hyphenation.ru');
 
-import { Article, FileData } from 'Article';
-
-const markdownIt = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true
-})
-  .use(require('markdown-it-decorate'))
-  .use(require('markdown-it-footnote'));
+import { FileData } from 'Article';
 
 const typograf = new Typograf({
   locale: 'ru',
@@ -28,7 +19,7 @@ export function parseArticleFileData(fileContent: string) {
 
   const content = jsYaml.load(fileContent) as FileData;
 
-  content.intro.text.forEach((item: string, index: number, arr: any) => {
+  content.intro.text.forEach((item: string, index: number, arr: string[]) => {
     let returnText = item;
     returnText = hypher.hyphenateText(returnText, 5);
     returnText = returnText.replace(/​+/g, '');
@@ -37,7 +28,7 @@ export function parseArticleFileData(fileContent: string) {
   });
 
   content.body.forEach((bodyItem: any) => {
-    bodyItem.text.forEach((item: string, index: number, arr: any) => {
+    bodyItem.text.forEach((item: string, index: number, arr: string[]) => {
       let returnText = item;
       returnText = hypher.hyphenateText(returnText, 5);
       returnText = returnText.replace(/​+/g, '');
@@ -46,7 +37,7 @@ export function parseArticleFileData(fileContent: string) {
     });
   });
 
-  content.conclusion.text.forEach((item: string, index: number, arr: any) => {
+  content.conclusion.text.forEach((item: string, index: number, arr: string[]) => {
     let returnText = item;
     returnText = hypher.hyphenateText(returnText, 5);
     returnText = returnText.replace(/​+/g, '');

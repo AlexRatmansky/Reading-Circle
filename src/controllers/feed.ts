@@ -6,10 +6,8 @@ import * as moment from 'moment';
 
 import { parseArticleFileData } from '../helpers/file';
 
-import { Article } from 'Article';
-
 /* GET users listing. */
-router.get('/rss', function (req, res, next) {
+router.get('/rss', function (req, res) {
 
   const todayDate = moment();
   const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;

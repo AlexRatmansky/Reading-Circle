@@ -1,9 +1,3 @@
-export type Article = {
-  title: string
-  date: string
-  path: string
-};
-
 export type TextBlock = {
   index?: number
   text: [string]
