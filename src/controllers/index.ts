@@ -6,10 +6,8 @@ import * as moment from 'moment';
 
 import { parseArticleFileData } from '../helpers/file';
 
-import { Article } from 'Article';
-
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 
   const todayDate = moment();
   const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;
@@ -35,7 +33,7 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET Date page. */
-router.get('/:monthId-:dayId', function (req, res, next) {
+router.get('/:monthId-:dayId', function (req, res) {
 
   const pathToFile = `./pages/${req.params.monthId}/${req.params.dayId}.yml`;
 
