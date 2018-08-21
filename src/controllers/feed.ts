@@ -7,7 +7,6 @@ import * as moment from 'moment';
 
 import { parseArticleFileData } from '../helpers/file';
 import { RssItem } from 'Article';
-import { thisExpression } from 'babel-types';
 
 const readFileAsync = promisify(fs.readFile);
 
