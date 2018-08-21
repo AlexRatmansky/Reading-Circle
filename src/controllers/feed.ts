@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import * as moment from 'moment';
 
 import { parseArticleFileData } from '../helpers/file';
-import { RssItem } from 'Article';
+import { RSSParams } from 'Article';
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -21,7 +21,10 @@ router.get('/rss', function (req, res) {
     'millisecond': 0
   });
 
-  const completeParams: { articles: RssItem[] } = { articles: [] };
+  const completeParams: RSSParams = {
+    articles: [],
+    lastBuildDate: todayDate.toDate().toISOString()
+  };
 
   let chain = Promise.resolve();
 
