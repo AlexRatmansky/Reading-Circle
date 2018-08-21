@@ -14,9 +14,8 @@ const readFileAsync = promisify(fs.readFile);
 router.get('/rss', function (req, res) {
 
   const todayDate = moment();
-
   todayDate.set({
-    'hour': 0,
+    'hour': 3,
     'minute': 0,
     'second': 0,
     'millisecond': 0
@@ -24,41 +23,25 @@ router.get('/rss', function (req, res) {
 
   const completeParams: { articles: RssItem[] } = { articles: [] };
 
-  const pathToFile = `./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`;
+  let chain = Promise.resolve();
 
-  readFileAsync(pathToFile, { encoding: 'utf8' })
-    .then((text) => {
-      completeParams.articles.push(formArticleData(text));
-      return readFileAsync(`./pages/${todayDate.subtract(1, 'day').format('MM')}/${todayDate.format('DD')}.yml`, { encoding: 'utf8' });
-    })
-    .then((text) => {
-      completeParams.articles.push(formArticleData(text));
-      return readFileAsync(`./pages/${todayDate.subtract(1, 'day').format('MM')}/${todayDate.format('DD')}.yml`, { encoding: 'utf8' });
-    })
-    .then((text) => {
-      completeParams.articles.push(formArticleData(text));
-      return readFileAsync(`./pages/${todayDate.subtract(1, 'day').format('MM')}/${todayDate.format('DD')}.yml`, { encoding: 'utf8' });
-    })
-    .then((text) => {
-      completeParams.articles.push(formArticleData(text));
-      return readFileAsync(`./pages/${todayDate.subtract(1, 'day').format('MM')}/${todayDate.format('DD')}.yml`, { encoding: 'utf8' });
-    })
-    .then((text) => {
-      completeParams.articles.push(formArticleData(text));
-      return readFileAsync(`./pages/${todayDate.subtract(1, 'day').format('MM')}/${todayDate.format('DD')}.yml`, { encoding: 'utf8' });
-    })
+  for (let i = 5; i > 0; i--) {
+    chain = chain
+      .then(() => readFileAsync(`./pages/${todayDate.format('MM')}/${todayDate.format('DD')}.yml`))
+      .then((data) => {
+        completeParams.articles.push(formArticleData(data));
+        todayDate.subtract(1, 'day');
+      });
+  }
+
+  chain
     .then(() => {
       res.set('Content-Type', 'text/xml');
       res.render('feed/rss', completeParams);
-    })
-    .catch((err) => {
-      console.log('ERROR:', err);
     });
 
   function formArticleData(data: any) {
-
     const fileData = parseArticleFileData(data);
-
     return {
       title: fileData.title || 'Empty title',
       date: todayDate.toDate().toISOString(),
