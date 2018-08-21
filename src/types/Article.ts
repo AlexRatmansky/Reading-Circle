@@ -8,7 +8,6 @@ export type FileData = {
   title: string
   month: string
   day: string
-
   intro: TextBlock
   body: TextBlock[]
   conclusion: TextBlock
@@ -21,4 +20,9 @@ export type RssItem = {
   intro: TextBlock
   body: TextBlock[]
   conclusion: TextBlock
+};
+
+export type RSSParams = {
+  articles: RssItem[]
+  lastBuildDate: string
 };
