@@ -12,49 +12,50 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
     language ru-Ru
     lastBuildDate= date
 
-    item
-      title= title
-      link
-        a(href="https://readingcircle.ru/" + slug, rel="nofollow") https://readingcircle.ru/#{slug}
+    each article in articles
+      item
+        title= article.title
+        link
+          a(href="https://readingcircle.ru/" + article.slug, rel="nofollow") https://readingcircle.ru/#{article.slug}
 
-      description
+        description
 
-        +escape()
+          +escape()
 
-          each paragraph in intro.text
-            h2
-              | !{paragraph}
-
-          if intro.author
-            p
-              em
-                | !{intro.author}
-
-          each item in body
-            h3
-              | !{item.index}
-
-            each paragraph in item.text
-              p
+            each paragraph in article.intro.text
+              h3
                 | !{paragraph}
 
-            if item.author
+            if article.intro.author
               p
                 em
-                  | !{item.author}
+                  | !{article.intro.author}
 
-          hr
+            each item in article.body
+              h2
+                | !{item.index}
 
-          each paragraph in conclusion.text
-            p
-              i
-                | !{paragraph}
+              each paragraph in item.text
+                p
+                  | !{paragraph}
 
-          if conclusion.author
-            p
-              em
-                | !{conclusion.author}
+              if item.author
+                p
+                  em
+                    | !{item.author}
 
-      pubDate= date
-      guid(isPermaLink="false")
-        a(href="https://readingcircle.ru/" + slug, rel="nofollow") https://readingcircle.ru/#{slug}
+            hr
+
+            each paragraph in article.conclusion.text
+              p
+                i
+                  | !{paragraph}
+
+            if article.conclusion.author
+              p
+                em
+                  | !{article.conclusion.author}
+
+        pubDate= article.date
+        guid(isPermaLink="false")
+          a(href="https://readingcircle.ru/" + article.slug, rel="nofollow") https://readingcircle.ru/#{article.slug}
