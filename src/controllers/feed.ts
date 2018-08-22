@@ -15,7 +15,7 @@ router.get('/rss', function (req, res) {
 
   const todayDate = moment();
   todayDate.set({
-    'hour': 3,
+    'hour': 0,
     'minute': 0,
     'second': 0,
     'millisecond': 0
