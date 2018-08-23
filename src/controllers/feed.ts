@@ -23,7 +23,7 @@ router.get('/rss', function (req, res) {
 
   const completeParams: RSSParams = {
     articles: [],
-    lastBuildDate: todayDate.toString()
+    lastBuildDate: todayDate.locale('en').format('ddd, DD MMM YYYY HH:mm:ss ZZ')
   };
 
   let chain = Promise.resolve();
@@ -47,7 +47,7 @@ router.get('/rss', function (req, res) {
     const fileData = parseArticleFileData(data);
     return {
       title: fileData.title || 'Empty title',
-      date: todayDate.toString(),
+      date: todayDate.locale('en').format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       slug: `${todayDate.format('MM')}-${todayDate.format('DD')}`,
       intro: fileData.intro,
       body: fileData.body,
