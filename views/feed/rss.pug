@@ -16,7 +16,7 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
       item
         title= article.title
         link
-          a(href="https://readingcircle.ru/" + article.slug, rel="nofollow") https://readingcircle.ru/#{article.slug}
+          | https://readingcircle.ru/#{article.slug}
 
         description
 
@@ -57,5 +57,5 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
                   | !{article.conclusion.author}
 
         pubDate= article.date
-        guid(isPermaLink="false")
-          a(href="https://readingcircle.ru/" + article.slug, rel="nofollow") https://readingcircle.ru/#{article.slug}
+        guid
+          | https://readingcircle.ru/#{article.slug}
