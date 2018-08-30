@@ -4,7 +4,7 @@ const Typograf = require('typograf');
 const Hypher = require('hypher');
 const hyphenation = require('hyphenation.ru');
 
-import { FileData } from 'Article';
+import { FileData, TextBlock } from 'Article';
 
 const typograf = new Typograf({
   locale: 'ru',
@@ -19,31 +19,22 @@ export function parseArticleFileData(fileContent: string) {
 
   const content = jsYaml.load(fileContent) as FileData;
 
-  content.intro.text.forEach((item: string, index: number, arr: string[]) => {
-    let returnText = item;
-    returnText = hypher.hyphenateText(returnText, 5);
-    returnText = returnText.replace(/​+/g, '');
-    returnText = typograf.execute(returnText);
-    arr[index] = returnText;
+  content.intro.text.forEach(prettifyText);
+
+  content.body.forEach((bodyItem: TextBlock) => {
+    bodyItem.text.forEach(prettifyText);
   });
 
-  content.body.forEach((bodyItem: any) => {
-    bodyItem.text.forEach((item: string, index: number, arr: string[]) => {
-      let returnText = item;
-      returnText = hypher.hyphenateText(returnText, 5);
-      returnText = returnText.replace(/​+/g, '');
-      returnText = typograf.execute(returnText);
-      arr[index] = returnText;
-    });
-  });
-
-  content.conclusion.text.forEach((item: string, index: number, arr: string[]) => {
-    let returnText = item;
-    returnText = hypher.hyphenateText(returnText, 5);
-    returnText = returnText.replace(/​+/g, '');
-    returnText = typograf.execute(returnText);
-    arr[index] = returnText;
-  });
+  content.conclusion.text.forEach(prettifyText);
 
   return content;
+}
+
+function prettifyText(item: string, index: number, arr: string[]): void {
+  // let returnText = item;
+  // returnText = hypher.hyphenateText(returnText, 5);
+  // returnText = returnText.replace(/​+/g, '');
+  // returnText = typograf.execute(returnText);
+  // arr[index] = returnText;
+  arr[index] = item;
 }
