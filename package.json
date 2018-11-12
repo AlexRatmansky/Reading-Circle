@@ -32,6 +32,7 @@
     "concurrently": "^4.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "^4.1.0",
+    "enquirer": "^2.0.6",
     "express": "^4.16.4",
     "hyphenation.ru": "^0.2.1",
     "hypher": "^0.2.5",
