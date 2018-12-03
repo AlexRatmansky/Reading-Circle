@@ -32,7 +32,7 @@
     "concurrently": "^4.1.0",
     "cookie-parser": "~1.4.3",
     "debug": "^4.1.0",
-    "enquirer": "^2.0.6",
+    "enquirer": "^2.1.1",
     "express": "^4.16.4",
     "hyphenation.ru": "^0.2.1",
     "hypher": "^0.2.5",
@@ -48,7 +48,7 @@
     "stylus": "^0.54.5",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.6",
+    "typescript": "^3.2.1",
     "typograf": "^6.7.3"
   },
   "nodemonConfig": {
