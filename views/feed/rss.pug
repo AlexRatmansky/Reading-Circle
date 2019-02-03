@@ -4,8 +4,8 @@ doctype xml
 rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
   channel
     title Круг чтения
-    link https://readingcircle.ru/
-    atom:link(href="https://readingcircle.ru/feed/rss", rel="self", type="application/rss+xml")
+    link https://calendarofwisdom.ru/
+    atom:link(href="https://calendarofwisdom.ru/feed/rss", rel="self", type="application/rss+xml")
 
     description Круг чтения. Лев Николаевич Толстой.
 
@@ -16,7 +16,7 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
       item
         title= article.title
         link
-          | https://readingcircle.ru/#{article.slug}
+          | https://calendarofwisdom.ru/#{article.slug}
 
         description
 
@@ -58,4 +58,4 @@ rss(version="2.0", xmlns:atom="http://www.w3.org/2005/Atom")
 
         pubDate= article.date
         guid
-          | https://readingcircle.ru/#{article.slug}
+          | https://calendarofwisdom.ru/#{article.slug}
