@@ -48,7 +48,7 @@
     "stylus": "^0.54.5",
     "ts-node": "^8.0.2",
     "tslint": "^5.12.1",
-    "typescript": "^3.2.4",
+    "typescript": "^3.3.1",
     "typograf": "^6.8.0"
   },
   "nodemonConfig": {
