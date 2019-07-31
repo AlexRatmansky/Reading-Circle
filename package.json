@@ -25,7 +25,7 @@
     "@types/express": "^4.17.0",
     "@types/js-yaml": "^3.12.1",
     "@types/markdown-it": "0.0.8",
-    "@types/morgan": "^1.7.35",
+    "@types/morgan": "^1.7.36",
     "@types/serve-favicon": "^2.2.30",
     "@types/shelljs": "^0.8.5",
     "body-parser": "^1.19.0",
